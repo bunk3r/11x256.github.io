@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Welcome to my blog"
+title:  "Frida hooking android part 1"
 date:   2017-05-05 23:19:33 +0200
 categories: Frida
 ---
@@ -134,8 +134,8 @@ Full scripts are here:
 
 
 
-The function is now called with our arguments(2,5)![]({{site.url}}/images/1/2.png)
+The function is now called with our arguments(2,5)![]({{site.url}}/images/1/2.PNG)
 
 The output of console.log appears in the python console.
 
-![]({{site.url}}/images/1/3.png)
+![]({{site.url}}/images/1/3.PNG)
