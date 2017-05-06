@@ -1,25 +1,141 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
+title:  "Welcome to my blog"
 date:   2017-05-05 23:19:33 +0200
-categories: jekyll update
+categories: Frida
 ---
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
+## **Introduction**
 
-To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
+In this post and the next few posts we will talk about **[Frida](https://www.frida.re/)** the Dynamic Binary Instrumentation tool, I will show you some examples that highlight what Frida can do, We will work on small android applications that i wrote, the source code of this app will be available on github, so let's start.
 
-Jekyll also offers powerful support for code snippets:
+One more thing, you should take a look first at the documentation, I will not repeat the documentation, I will show you examples that can make the documentation more understandable.
 
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %}
+## **Installation**:
 
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+You can check the [Quick-Start](https://www.frida.re/docs/quickstart/) guide from the official documentation, and [installing the android server](https://www.frida.re/docs/android/), this should be straight forward.
 
-[jekyll-docs]: https://jekyllrb.com/docs/home
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
+You will also need [android development environment](https://developer.android.com/studio/install.html) if you will build the code yourself, or you can download the APK.
+
+You will need root access on an android device to follow this tutorial, you may use a physical device, but i will be using an emulator(Android 6.0 x86).
+
+I use [pycharm](https://www.jetbrains.com/pycharm/download/) as a python IDE, and i will be using python 2.7 .
+
+
+
+## **Example #1**
+
+
+
+```java
+public class my_activity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_my_activity);
+        while (true){
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            fun(50,30);
+        }
+    }
+
+    void fun(int x , int y ){
+        Log.d("Sum" , String.valueOf(x+y));
+    }
+
+
+}
+```
+This snippet is a part of the android code, `onCreate` will be called when the app runs, it waits for 1 second and then calls function `fun` , and repeats forever.
+
+Function `fun` will print the sum of the two arguments (80), logs can be viewed using logcat.
+
+
+
+![]({{site.url}}/images/1/1.PNG)
+
+Now, we will use frida to change this result and these are the steps that we should follow:
+
+1. start frida server
+2. install the APK
+3. run the APK and attach frida to the app.
+4. hook the calls to function `fun` 
+5. modify the arguments as we wish
+
+starting frida server:
+
+```powershell
+PS C:\Users\11x256> adb shell
+root@generic_x86:/ # /data/local/tmp/frida-server &
+```
+
+Installing the APK:
+
+```powershell
+PS C:\Users\11x256> adb install .\Desktop\app-1.apk
+.\Desktop\app-1.apk: 1 file pushed. 49.0 MB/s (1573086 bytes in 0.031s)
+        pkg: /data/local/tmp/app-1.apk
+Success
+```
+
+
+
+Frida injects Javascript into processes so we will write Javascript code, and it has python bindings so will write python to automate frida.
+
+```python
+device = frida.get_usb_device()
+pid = device.spawn(["com.example.a11x256.frida_test"])
+process = device.attach(pid)
+device.resume(pid)
+```
+
+This piece of code will get the usb device (which is an android emulator in my case), starts the process, attaches to it and resumes that process.
+
+You can get the package name from the APK as follows:
+
+```bash
+remnux@remnux:~/Desktop$ apktool d app-1.apk 
+remnux@remnux:~/Desktop$ grep "package" ./app-1/AndroidManifest.xml 
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.a11x256.frida_test" platformBuildVersionCode="25" platformBuildVersionName="7.1.1">
+
+```
+
+Now we want to write some JS code that will be injected into the running process to extract/modify the arguments of the function call.
+
+We already know the name of the function `fun` and the class that contains it `main_activity`.
+
+```javascript
+console.log("Script loaded successfully ");
+Java.perform(function x(){
+    //get a wrapper for our class
+    var my_class = Java.use("com.example.a11x256.frida_test.my_activity");
+    //replace the original implmenetation of the function `fun` with our custom function
+    my_class.fun.implementation = function(x,y){
+    //print the original arguments
+    console.log( "original call: fun("+ x + ", " + y + ")");
+    //call the original implementation of `fun` with args (2,5)
+    var ret_value = this.fun(2,5);
+    return ret_value;
+    }});
+
+```
+
+Full scripts are here:
+
+
+
+## The result:
+
+
+
+The function is now called with our arguments(2,5)![]({{site.url}}/images/1/2.png)
+
+The output of console.log appears in the python console.
+
+![]({{site.url}}/images/1/3.png)
