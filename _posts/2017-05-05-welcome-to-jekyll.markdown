@@ -70,12 +70,18 @@ Now, we will use frida to change this result and these are the steps that we wil
 
 ##### Step 1:
 
+Getting a root shell on the android emulator and executing frida-server.
+
+*Note: Make sure that adb is in your PATH variable.*
+
 ```powershell
 PS C:\Users\11x256> adb shell
 root@generic_x86:/ # /data/local/tmp/frida-server &
 ```
 
 ##### Step 2:
+
+Installing the APK on the device
 
 ```powershell
 PS C:\Users\11x256> adb install .\Desktop\app-1.apk
@@ -89,6 +95,7 @@ Success
 Frida injects Javascript into processes so we will write Javascript code, and it has python bindings so will write python to automate frida.
 
 ```python
+#python code
 device = frida.get_usb_device()
 pid = device.spawn(["com.example.a11x256.frida_test"])
 process = device.attach(pid)
@@ -103,7 +110,6 @@ You can get the package name from the APK as follows:
 remnux@remnux:~/Desktop$ apktool d app-1.apk 
 remnux@remnux:~/Desktop$ grep "package" ./app-1/AndroidManifest.xml 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.a11x256.frida_test" platformBuildVersionCode="25" platformBuildVersionName="7.1.1">
-
 ```
 
 #### Step 4&5:
@@ -113,6 +119,7 @@ Now we want to write some JS code that will be injected into the running process
 We already know the name of the function `fun` and the class that contains it `main_activity`.
 
 ```javascript
+//Javscript code
 console.log("Script loaded successfully ");
 Java.perform(function x(){
     //get a wrapper for our class
