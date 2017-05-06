@@ -96,10 +96,19 @@ Frida injects Javascript into processes so we will write Javascript code, and it
 
 ```python
 #python code
+import frida
+import time
 device = frida.get_usb_device()
 pid = device.spawn(["com.example.a11x256.frida_test"])
-process = device.attach(pid)
 device.resume(pid)
+time.sleep(1) #Without it Java.perform silently fails
+session = device.attach(pid)
+script = session.create_script(open("s1.js").read())
+script.load()
+
+#prevent the python script from terminating
+raw_input()
+
 ```
 
 This piece of code will get the usb device (which is an android emulator in my case), starts the process, attaches to it and resumes that process.
@@ -119,16 +128,16 @@ Now we want to write some JS code that will be injected into the running process
 We already know the name of the function `fun` and the class that contains it `main_activity`.
 
 ```javascript
-//Javscript code
 console.log("Script loaded successfully ");
-Java.perform(function x(){
+Java.perform(function x(){ //Silently fails without the sleep from the python code
+    console.log("Inside java perform function");
     //get a wrapper for our class
     var my_class = Java.use("com.example.a11x256.frida_test.my_activity");
-    //Step 4: replace the original implmenetation of the function `fun` with our custom function
+    //replace the original implmenetation of the function `fun` with our custom function
     my_class.fun.implementation = function(x,y){
     //print the original arguments
     console.log( "original call: fun("+ x + ", " + y + ")");
-    //Step 5:call the original implementation of `fun` with args (2,5)
+    //call the original implementation of `fun` with args (2,5)
     var ret_value = this.fun(2,5);
     return ret_value;
     }});
