@@ -6,7 +6,7 @@ categories: Frida
 ---
 ## **Introduction**
 
-In this post and the next few posts we will talk about **[Frida](https://www.frida.re/)** the Dynamic Binary Instrumentation tool, I will show you some examples that highlight what Frida can do, We will work on small android applications that i wrote, the source code of this app will be available on github, so let's start.
+In this post and the next few posts we will talk about **[Frida](https://www.frida.re/)** the Dynamic Binary Instrumentation tool, I will show you some examples that highlight what Frida can do, We will work on small android applications that i wrote, the source code of these apps will be available on github, so let's start.
 
 One more thing, you should take a look first at the documentation, I will not repeat the documentation, I will show you examples that can make the documentation more understandable.
 
@@ -18,7 +18,7 @@ You will also need [android development environment](https://developer.android.c
 
 You will need root access on an android device to follow this tutorial, you may use a physical device, but i will be using an emulator(Android 6.0 x86).
 
-I use [pycharm](https://www.jetbrains.com/pycharm/download/) as a python IDE, and i will be using python 2.7 .
+And i will be using python 2.7 .
 
 
 
@@ -60,7 +60,7 @@ Function `fun` will print the sum of the two arguments (80), logs can be viewed 
 
 ![]({{site.url}}/images/1/1.PNG)
 
-Now, we will use frida to change this result and these are the steps that we should follow:
+Now, we will use frida to change this result and these are the steps that we will follow:
 
 1. start frida server
 2. install the APK
@@ -68,14 +68,14 @@ Now, we will use frida to change this result and these are the steps that we sho
 4. hook the calls to function `fun` 
 5. modify the arguments as we wish
 
-starting frida server:
+##### Step 1:
 
 ```powershell
 PS C:\Users\11x256> adb shell
 root@generic_x86:/ # /data/local/tmp/frida-server &
 ```
 
-Installing the APK:
+##### Step 2:
 
 ```powershell
 PS C:\Users\11x256> adb install .\Desktop\app-1.apk
@@ -84,7 +84,7 @@ PS C:\Users\11x256> adb install .\Desktop\app-1.apk
 Success
 ```
 
-
+##### Step 3:
 
 Frida injects Javascript into processes so we will write Javascript code, and it has python bindings so will write python to automate frida.
 
@@ -106,6 +106,8 @@ remnux@remnux:~/Desktop$ grep "package" ./app-1/AndroidManifest.xml
 
 ```
 
+#### Step 4&5:
+
 Now we want to write some JS code that will be injected into the running process to extract/modify the arguments of the function call.
 
 We already know the name of the function `fun` and the class that contains it `main_activity`.
@@ -115,18 +117,15 @@ console.log("Script loaded successfully ");
 Java.perform(function x(){
     //get a wrapper for our class
     var my_class = Java.use("com.example.a11x256.frida_test.my_activity");
-    //replace the original implmenetation of the function `fun` with our custom function
+    //Step 4: replace the original implmenetation of the function `fun` with our custom function
     my_class.fun.implementation = function(x,y){
     //print the original arguments
     console.log( "original call: fun("+ x + ", " + y + ")");
-    //call the original implementation of `fun` with args (2,5)
+    //Step 5:call the original implementation of `fun` with args (2,5)
     var ret_value = this.fun(2,5);
     return ret_value;
     }});
-
 ```
-
-Full scripts are here:
 
 
 
@@ -139,3 +138,7 @@ The function is now called with our arguments(2,5)![]({{site.url}}/images/1/2.PN
 The output of console.log appears in the python console.
 
 ![]({{site.url}}/images/1/3.PNG)
+
+## Files
+
+[Example 1](https://github.com/11x256/frida-android-examples/tree/master/examples/1)
