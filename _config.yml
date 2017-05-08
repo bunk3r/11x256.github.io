@@ -23,7 +23,7 @@ url: "https://11x256.github.io" # the base hostname & protocol for your site, e.
 #url: http://localhost:4000
 twitter_username: 11x256
 github_username:  11x256
-
+permalink: /:title/
 # Build settings
 markdown: kramdown
 theme: minima
