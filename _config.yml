@@ -17,9 +17,7 @@ title: 11x256 RE blog
 email: your-email@domain.com
 google_analytics: UA-98667589-1
 description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Blog about Reverse engineering.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://11x256.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 #url: http://localhost:4000
