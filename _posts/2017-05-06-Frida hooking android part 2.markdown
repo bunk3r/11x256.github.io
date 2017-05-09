@@ -3,6 +3,7 @@ layout: post
 title:  "Frida hooking android part 2"
 date:   2017-05-06 16:00:00 +0200
 categories: Frida
+description: I will show you how to deal with method overloading and non-primitive datatypes.
 ---
 ## **Introduction**
 
@@ -158,4 +159,4 @@ That's enough for this tutorial, we will control exactly when to call `secret` f
 
 ## Files
 
-https://github.com/11x256/frida-android-examples/tree/master/examples/2
+[example 2](https://github.com/11x256/frida-android-examples/tree/master/examples/2)

@@ -13,15 +13,17 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: 11x256 RE blog
+title: 11x256's RE blog
 email: your-email@domain.com
 google_analytics: UA-98667589-1
 description: > # this means to ignore newlines until "baseurl:"
-  Blog about Reverse engineering.
+  Blog about Reverse engineering, Android application pentesting.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://11x256.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 #url: http://localhost:4000
 twitter_username: 11x256
+twitter:
+  username: 11x256
 github_username:  11x256
 permalink: /:title/
 # Build settings
@@ -29,6 +31,8 @@ markdown: kramdown
 theme: minima
 gems:
   - jekyll-feed
+  - jekyll-seo-tag
 exclude:
   - Gemfile
   - Gemfile.lock
+author:Abd-EL-Rahman Mohamed

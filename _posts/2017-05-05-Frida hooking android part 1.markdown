@@ -3,6 +3,8 @@ layout: post
 title:  "Frida hooking android part 1"
 date:   2017-05-05 23:19:33 +0200
 categories: Frida
+description: In this post and the next few posts we will talk about Frida, the Dynamic Binary Instrumentation tool.
+
 ---
 ## **Introduction**
 
