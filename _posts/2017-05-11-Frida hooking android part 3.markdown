@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Frida hooking android part 3"
-date:   2017-05-06 3:14:00 +0200
+date:   2017-05-11 3:14:00 +0200
 categories: Frida
 description: Using Frida's RPC to communicate with the hooked android application.
 ---
