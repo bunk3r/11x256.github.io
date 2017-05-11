@@ -59,9 +59,14 @@ public class my_activity extends AppCompatActivity {
 
 ```
 
-I added one new function `fun` that accepts a String as input and returns another String, so now we have two functions with the same but different signatures(function overloading).
+I added two new functions:
 
-if we ran the script from the previous example, it will fail silently, in order to see the error message we have to handle messages sent form our js code to our python code by adding the following python code.
+1. `fun` that accepts a String as input and returns another String, so now we have two functions with the same but different signatures(function overloading).
+2. `secret` which is not called anywhere in the program.
+
+
+
+If we ran the script from the previous example, it will fail silently, in order to see the error message we have to handle messages sent form our js code to our python code by adding the following python code.
 
 ```python
 #python code
@@ -114,15 +119,14 @@ Both methods are equivalent here, but in other cases there will be only one way 
 var string_class = Java.use("java.lang.String"); // get a JS wrapper for java's String class
 
 my_class.fun.overload("java.lang.String").implementation = function(x){ //hooking the new function
-  console.log("*************************************")
+  console.log("*************************************");
   var my_string = string_class.$new("My TeSt String#####"); //creating a new String by using `new` operator 
   console.log("Original arg: " +x );
   var ret =  this.fun(my_string); // calling the original function with the new String, and putting its return value in ret variable
   console.log("Return value: "+ret);
-  console.log("*************************************")
+  console.log("*************************************");
   return ret;
 };
-
 ```
 
 Now lets assume that we want to call function `secret`, it is not being called from the `onCreate` function, so hooking calls to it would be useless.
@@ -148,7 +152,6 @@ This will print the following:
 ```
 Found instance: com.example.a11x256.frida_test.my_activity@9600a96
 Result of secret func: @@@###@@@
-
 ```
 
 We called `secret` as soon as we could, so variable `total` was not modified yet.
