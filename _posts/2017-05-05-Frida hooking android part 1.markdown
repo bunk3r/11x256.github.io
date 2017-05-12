@@ -4,7 +4,7 @@ title:  "Frida hooking android part 1"
 date:   2017-05-05 23:19:33 +0200
 categories: Frida
 description: In this post and the next few posts we will talk about Frida, the Dynamic Binary Instrumentation tool.
-
+tags: Frida android reverse engineering
 ---
 ## **Introduction**
 
@@ -60,7 +60,7 @@ Function `fun` will print the sum of the two arguments (80), logs can be viewed 
 
 
 
-![]({{site.url}}/images/1/1.PNG)
+![output of unmodified code]({{site.url}}/images/1/1.PNG)
 
 Now, we will use frida to change this result and these are the steps that we will follow:
 
@@ -151,11 +151,11 @@ Java.perform(function x(){ //Silently fails without the sleep from the python co
 
 
 
-The function is now called with our arguments(2,5)![]({{site.url}}/images/1/2.PNG)
+The function is now called with our arguments(2,5)![output of unmodified code]({{site.url}}/images/1/2.PNG)
 
 The output of console.log appears in the python console.
 
-![]({{site.url}}/images/1/3.PNG)
+![output of console.log]({{site.url}}/images/1/3.PNG)
 
 ## Files
 
