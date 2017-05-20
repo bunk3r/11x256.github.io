@@ -10,6 +10,7 @@ url: https://11x256.github.io
 gems:
   - jekyll-paginate
   - jekyll-seo-tag
+  - jekyll-feed
 markdown: kramdown
 kramdown:
   input: GFM
