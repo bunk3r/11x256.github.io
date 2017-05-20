@@ -1,7 +1,6 @@
 ---
 layout: page
 title: About
-permalink: /about/
 ---
 
 This blog will host tutorials about using Frida to instrument android applications.
@@ -9,4 +8,3 @@ This blog will host tutorials about using Frida to instrument android applicatio
 
 
 Note: Blog is under development :).
-
