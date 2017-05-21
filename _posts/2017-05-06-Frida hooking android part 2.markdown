@@ -4,6 +4,7 @@ title:  "Frida hooking android part 2"
 date:   2017-05-06 16:00:00 +0200
 categories: Frida
 description: I will show you how to deal with method overloading and non-primitive datatypes.
+tags: Frida android reverse engineering
 ---
 ## **Introduction**
 
