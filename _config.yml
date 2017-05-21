@@ -1,7 +1,8 @@
 # Site Info
 title: 11x256's blog
 tagline: 'A blog about Reverse Engineering (RE)'
-description: 'A Jekyll theme adapted from <a href="http://lanyon.getpoole.com/" target="_blank">Lanyon</a>. Made by <a href="http://codinfox.github.io" target="_blank">@codinfox</a>.'
+description: > # this means to ignore newlines until "baseurl:"
+  Blog about Reverse engineering, Android application pentesting.
 baseurl: ""
 url: https://11x256.github.io
 #logo: '/public/logo.png'
