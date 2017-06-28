@@ -236,6 +236,7 @@ dec_cipher_hashcodes = [] #cipher objects with Cipher.ENCRYPT_MODE will be store
 
 
 def my_message_handler(message, payload):
+    #mainly printing the data sent from the js code, and managing the cipher objects according to their operation mode
     if message["type"] == "send":
         # print message["payload"]
         my_json = json.loads(message["payload"])
@@ -280,8 +281,28 @@ raw_input()
 
 
 
+## Output
+
+sample of the output captured when communicating with a local server(included in the files).
+
+```
+Iv sent to cipher init() 62626262626262626262626262626262
+Data to be encrypted : 6557:hardcoded_secret_password
+Key sent to SecretKeySpec() 61616161616161616161616161616161
+Iv sent to IvParameterSpec() 62626262626262626262626262626262
+Key sent to cipher init() 61616161616161616161616161616161
+Iv sent to cipher init() 62626262626262626262626262626262
+Decrypted data : Can you see this secret message too !!!
+Key sent to SecretKeySpec() 61616161616161616161616161616161
+Iv sent to IvParameterSpec() 62626262626262626262626262626262
+Key sent to cipher init() 61616161616161616161616161616161
+Iv sent to cipher init() 62626262626262626262626262626262
+Decrypted data : Can you see this secret message too !!!
+
+```
+
 
 
 ## Files
 
-[Example 4](https://github.com/11x256/frida-android-examples/tree/master/examples/4)
+[Example 5](https://github.com/11x256/frida-android-examples/tree/master/examples/5)
