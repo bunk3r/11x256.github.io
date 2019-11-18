@@ -22,6 +22,8 @@ For example: if it contacted the domain on Thursday January 1 1970 12:00:00 AM G
 
 Tip: use https://www.epochconverter.com to create the timestamp, and use GMT timezone if needed.
 
+https://github.com/11x256/11x256.github.io/blob/master/binaries/ch2
+
 ```
 
 
@@ -34,7 +36,7 @@ Before taking the first step, lets run the binary. But how can we run a binary f
 
 You can search for a tutorial on how to run an ARM64 machine using QEMU, or use an android VM from android studio, which is the fastest solution, I guess.
 
-![1](E:\temp\11x256.github.io\images\2\1.PNG)
+![1](https://github.com/11x256/11x256.github.io/blob/master/images/2/1.PNG)
 
 Now, we have to push the binary to the device and execute it using the following commands:
 
@@ -96,7 +98,7 @@ As you can see from the output that the version numbers are identical, I did not
 
 Now, lets open the 2 binaries in IDA, the one we built with symbols and the challenge.
 
-![2](E:\temp\11x256.github.io\images\2\2.png)
+![2](https://github.com/11x256/11x256.github.io/blob/master/images/2/2.png)
 
 On the left side you can see that IDA identified 1847 functions with their names, and on the right side, only 1153 without names (symbols).
 
@@ -108,7 +110,7 @@ Diaphora is a great plugin for IDA that can do this function matching for us. Sa
 
 So now we know where is "fmt.doPrintln" in the stripped binary.
 
-​	![3](E:\temp\11x256.github.io\images\2\3.PNG)
+​	![3](https://github.com/11x256/11x256.github.io/blob/master/images/2/3.PNG)
 
 By checking the cross references of "fmt.doPrintln" in the test binary, we can see that is called by only one function ("fmt.Println"), our target function. Also by checking the cross references of "sub_9EEB0" in the stripped binary, we can see that it is also called by one function, which must be "fmt.Println", at least we are 98% sure of that.
 
