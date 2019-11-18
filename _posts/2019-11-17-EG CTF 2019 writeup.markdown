@@ -122,7 +122,7 @@ Now by cross referencing the target function in the stripped binary, we find tha
 
 I am not that good with ARM architecture, so I will keep try to finish this part as soon as possible, my target in this step is to try to figure out why does the binary take a few seconds to execute. If I can make it execute fasters, then solving it using a blackbox approach will be feasible.
 
-![4](E:\temp\11x256.github.io\images\2\4.PNG)
+![4](https://raw.githubusercontent.com/11x256/11x256.github.io/master/images/2/4.PNG)
 
 These blocks are the counter measures added to prevent the blackbox approach, a basic for loop that will loop for 1903712550 times, in each iteration it does nothing. X0 is a register and is used as the loop counter, and its value is overwritten as soon as the loop ends, so this loop is a dead code.
 
@@ -161,7 +161,7 @@ fout.close()
 
 date command will set the date, we will start by bruteforcing the value of the seconds field. Hopefully we will get a correct result. The python script produces 60 pairs to try all the possible values of the seconds field, and the output will be appended to /data/local/tmp/res file.
 
-![5](E:\temp\11x256.github.io\images\2\5.PNG)
+![5](https://raw.githubusercontent.com/11x256/11x256.github.io/master/images/2/5.PNG)
 
 This is a snippet of the result of bruteforcing the seconds field, as you can see, more than one part changes based on the value of the seconds filed, but the first part depends exclusively on the value of the seconds field, you can verify that by changing the other fields and checking whether the first part will change or not.
 
