@@ -98,7 +98,7 @@ As you can see from the output that the version numbers are identical, I did not
 
 Now, lets open the 2 binaries in IDA, the one we built with symbols and the challenge.
 
-![2](https://raw.githubusercontent.com/11x256/11x256.github.io/master/images/2/2.PNG)
+![2](https://raw.githubusercontent.com/11x256/11x256.github.io/master/images/2/2.png)
 
 On the left side you can see that IDA identified 1847 functions with their names, and on the right side, only 1153 without names (symbols).
 
